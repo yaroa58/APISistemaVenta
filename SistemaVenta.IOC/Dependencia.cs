@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using SistemaVenta.DAL.Repositorios.Contrato;
 using SistemaVenta.DAL.Repositorios;
 
+using SistemaVenta.Utility;
+
 namespace SistemaVenta.IOC
 {
    public static class Dependencia
@@ -28,6 +30,11 @@ namespace SistemaVenta.IOC
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             // dependencia para ventas (especificando el modelo exacto con scoped)
             services.AddScoped<IVentaRepository, VentaRepository>();
+
+            // add dependencia automapper con todos los mapeos 
+
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+
         }
     }
 }
