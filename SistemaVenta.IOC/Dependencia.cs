@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SistemaVenta.DAL.Repositorios.Contrato;
+using SistemaVenta.DAL.Repositorios;
+
 namespace SistemaVenta.IOC
 {
    public static class Dependencia
@@ -19,6 +22,12 @@ namespace SistemaVenta.IOC
             {
                 options.UseSqlServer(configuration.GetConnectionString("cadenaSQL"));
             });
+
+            //inyectar dependencias DAL para que sea utlizada en esta capa (modelo generico)
+
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            // dependencia para ventas (especificando el modelo exacto con scoped)
+            services.AddScoped<IVentaRepository, VentaRepository>();
         }
     }
 }
