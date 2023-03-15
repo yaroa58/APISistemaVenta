@@ -17,7 +17,9 @@ public partial class Usuario
 
     public bool? EsActivo { get; set; }
 
+    //estas dos opciones no debería exponerse a angular 
     public DateTime? FechaRegistro { get; set; }
 
+    //nos sirve para relacionar el ususario con el rol
     public virtual Rol? IdRolNavigation { get; set; }
 }
