@@ -12,9 +12,9 @@ using SistemaVenta.DAL.Repositorios.Contrato;
 using SistemaVenta.DTO;
 using SistemaVenta.Model;
 
-namespace SistemaVenta.BLL.Servicios.Contrato
+namespace SistemaVenta.BLL.Servicios
 {
-    public class ProductoService:IProductoService
+    public class ProductoService : IProductoService
     {
         private readonly IGenericRepository<Producto> _productoRepositorio;
         private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ namespace SistemaVenta.BLL.Servicios.Contrato
                 var listaProductos = queryProducto.Include(cat => cat.IdCategoriaNavigation).ToList();
                 return _mapper.Map<List<ProductoDTO>>(listaProductos.ToList());
             }
-            catch 
+            catch
             {
 
                 throw;
@@ -42,7 +42,7 @@ namespace SistemaVenta.BLL.Servicios.Contrato
         {
             try
             {
-                var productoCreado=await _productoRepositorio.Crear(_mapper.Map<Producto>(modelo));
+                var productoCreado = await _productoRepositorio.Crear(_mapper.Map<Producto>(modelo));
                 if (productoCreado.IdProducto == 0)
                     throw new TaskCanceledException("No se pudo crear el producto");
                 return _mapper.Map<ProductoDTO>(productoCreado);
@@ -60,7 +60,7 @@ namespace SistemaVenta.BLL.Servicios.Contrato
             {
                 var productoModelo = _mapper.Map<Producto>(modelo);
                 var productoEntontrado = await _productoRepositorio.Obtener(u => u.IdProducto == productoModelo.IdProducto);
-                if(productoEntontrado==null)
+                if (productoEntontrado == null)
                     throw new TaskCanceledException("No se pudo encontrar el producto");
                 productoEntontrado.Nombre = productoModelo.Nombre;
                 productoEntontrado.IdCategoria = productoModelo.IdCategoria;
@@ -71,7 +71,7 @@ namespace SistemaVenta.BLL.Servicios.Contrato
                 bool respuesta = await _productoRepositorio.Editar(productoEntontrado);
 
                 if (!respuesta)
-                
+
                     throw new TaskCanceledException("No se pudo Editar");
 
                 return respuesta;
@@ -104,6 +104,6 @@ namespace SistemaVenta.BLL.Servicios.Contrato
 
                 throw;
             }
-        }       
+        }
     }
 }
