@@ -12,6 +12,8 @@ using SistemaVenta.DAL.Repositorios.Contrato;
 using SistemaVenta.DAL.Repositorios;
 
 using SistemaVenta.Utility;
+using SistemaVenta.BLL.Servicios.Contrato;
+using SistemaVenta.BLL.Servicios;
 
 namespace SistemaVenta.IOC
 {
@@ -34,6 +36,16 @@ namespace SistemaVenta.IOC
             // add dependencia automapper con todos los mapeos 
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
+
+            // add dependencia servicios  
+
+            services.AddScoped<IRolService,RolService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<ICategoriaService,CategoriaService>();
+            services.AddScoped<IProductoService,ProductoService>();
+            services.AddScoped<IVentasService,VentasService>();
+            services.AddScoped<IDashboardService,DashBoardService>();
+            services.AddScoped<IMenuService,MenuService>();
 
         }
     }
